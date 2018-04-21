@@ -91,7 +91,6 @@ document.addEventListener('DOMContentLoaded', function(){
         if(operator.textContent != '=') array = ['', resolved, operator.textContent,'','', false, false];
         else array = ['', resolved, '','','', false, false];
       }
-      console.log(array);
       applyInput();
     });
   });
