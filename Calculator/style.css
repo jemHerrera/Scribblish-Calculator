@@ -1,0 +1,37 @@
+button{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  background-color: #222;
+  border:none;
+  color: #eee;
+  font-size: 1.5rem;
+}
+button:focus{
+  outline:none;
+  box-shadow:none !important;
+}
+.input{
+  color:#eee;
+  font-size: 5rem;
+  text-align: right;
+  padding-right: 3%;
+}
+.background{
+  background-color: #111;
+  height:100vh;
+}
+.basic-size{
+  height: 568px;
+  width: 320px;
+}
+.log{
+  flex-grow:1;
+}
+.rows{
+  height:14%;
+}
+.zero{
+  width:150px;
+  border-radius: 35px;
+}
