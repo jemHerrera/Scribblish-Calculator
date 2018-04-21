@@ -1,11 +1,11 @@
 button{
   width:70px;
   height:70px;
-  border-radius:50%;
   background-color: #222;
   border:none;
   color: #eee;
   font-size: 1.5rem;
+  font-weight: 100;
 }
 button:focus{
   outline:none;
@@ -13,8 +13,8 @@ button:focus{
 }
 .input{
   color:#eee;
-  font-size: 5rem;
-  text-align: right;
+  font-size: 4rem;
+  font-weight: 100;
   padding-right: 3%;
 }
 .background{

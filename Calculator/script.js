@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function(){
+  let input = document.querySelector('#input');
   /*
   array keeps track of what's going on,
   [0] sign of first number (+/-)
@@ -11,29 +12,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   ..note that the type number elements is string, to make it easier to concatenate
   */
-  let array = ['+', '0','','+','', false, false];
-  
-  
-  // resolve is the function that takes array as argument, and returns the solved value
-  function resolve([sign1, num1, operator, sign2, num2, percent1, percent2]){
-    if (/\./.test(num1)) {
-      num1 = parseFloat(num1);
-    }
-    else num1 = parseInt(num1);
-    if (/\./.test(num2)) {
-      num2 = parseFloat(num2);
-    }
-    else num2 = parseInt(num2);
-    if(sign1 === '-') num1 *= -1;
-    if(sign2 === '-') num2 *= -1;
-    if(operator == '+') return String(num1+num2);
-    else if(operator == '−') return String(num1-num2);
-    else if(operator == '×') return String(num1*num2);
-    else {
-      if (num2 == 0) return 'Error';
-      else return String(num1/num2);
-    }
-  }
+  let array = ['', '0','','','', false, false];
 
 // create click listeners on all the numbers, including dot(.)
   let nums = document.querySelectorAll('.btn-dark');
@@ -49,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function(){
       }
       if(array[2] === '') addNum(1);
       else addNum(4);
-      console.log(array);
+      applyInput();
     });
   });
 
@@ -58,14 +37,14 @@ document.addEventListener('DOMContentLoaded', function(){
   extras.forEach(function(extra){
     extra.addEventListener('click', function(event){
       // if ac is clicked
-      if(extra.textContent === 'AC') array = ['+', '0','','+','', false, false];
+      if(extra.textContent === 'AC') array = ['', '0','','','', false, false];
 
       // else if +/- is clicked
       else if(extra.textContent === '+/-'){
         //function to change sign of num
         function changeSign(index){
-          if (array[index]==='+') array[index] = '-';
-          else array[index] = '+';          
+          if (array[index]==='') array[index] = '-';
+          else array[index] = '';
         }
         if(array[2] === '') changeSign(0);
         else changeSign(3);
@@ -90,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function(){
         if (array[2] === '')percent(1,5);
         else percent(4,6)
       }
-      console.log(array);
+      applyInput();
     });
   });
 
@@ -107,10 +86,52 @@ document.addEventListener('DOMContentLoaded', function(){
       //use resolve function if the array is complete
       else{
         let resolved = resolve(array);
-        if(/\./.test(resolved)) resolved = String(parseFloat(resolved).toFixed((resolved.length)-2));
-        array = ['+', resolved,'','+','', false, false];
+        if(/\./.test(resolved)) resolved = String(parseFloat(resolved).toFixed(2));
+        if(resolved == '0.00') resolved = 'too small';
+        if(operator.textContent != '=') array = ['', resolved, operator.textContent,'','', false, false];
+        else array = ['', resolved, '','','', false, false];
       }
       console.log(array);
+      applyInput();
     });
   });
+
+
+  //FUNCTIONS.
+
+  //convert array to readable string
+  function convertArr(arr){
+    return arr.slice(0,5).join("");
+  }
+
+  //show numbers on the screen
+  function applyInput(){
+    if(convertArr(array).length > 8) {
+      input.style.fontSize = '2rem';
+      input.style.marginBottom = '5%';
+    }
+    else input.style.fontSize = '4rem';
+    input.textContent = (convertArr(array));
+  }
+
+  //takes array as argument, and returns the solved value
+  function resolve([sign1, num1, operator, sign2, num2, percent1, percent2]){
+    if (/\./.test(num1)) {
+      num1 = parseFloat(num1);
+    }
+    else num1 = parseInt(num1);
+    if (/\./.test(num2)) {
+      num2 = parseFloat(num2);
+    }
+    else num2 = parseInt(num2);
+    if(sign1 === '-') num1 *= -1;
+    if(sign2 === '-') num2 *= -1;
+    if(operator == '+') return String(num1+num2);
+    else if(operator == '−') return String(num1-num2);
+    else if(operator == '×') return String(num1*num2);
+    else {
+      if (num2 == 0) return 'Error';
+      else return String(num1/num2);
+    }
+  }
 });
