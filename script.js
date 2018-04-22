@@ -105,12 +105,16 @@ document.addEventListener('DOMContentLoaded', function(){
 
   //show numbers on the screen
   function applyInput(){
-    if(convertArr(array).length > 8) {
+    if(convertArr(array).length > 8 && convertArr(array).length <= 16) {
       input.style.fontSize = '2rem';
       input.style.marginBottom = '5%';
+      input.textContent = (convertArr(array));
     }
-    else input.style.fontSize = '4rem';
-    input.textContent = (convertArr(array));
+    else if(convertArr(array).length > 16) input.textContent = 'Digit Limit Reached';
+    else {
+      input.style.fontSize = '4rem';
+      input.textContent = (convertArr(array));
+    }
   }
 
   //takes array as argument, and returns the solved value
